@@ -1,10 +1,10 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-const Ingredient = db.define(
-  'ingredient',
+const Recipe = db.define(
+  'recipe',
   {
-    item: {
+    name: {
       type: Sequelize.STRING,
       allowNull: false,
       unique: true,
@@ -12,8 +12,15 @@ const Ingredient = db.define(
         notEmpty: true,
       },
     },
-    type: {
-      type: Sequelize.STRING,
+    instructions: {
+      type: Sequelize.TEXT,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    servingSize: {
+      type: Sequelize.INTEGER,
       allowNull: false,
       validate: {
         notEmpty: true,
@@ -23,4 +30,4 @@ const Ingredient = db.define(
   { timestamps: false, createdAt: false, updatedAt: false }
 );
 
-module.exports = Ingredient;
+module.exports = Recipe;
