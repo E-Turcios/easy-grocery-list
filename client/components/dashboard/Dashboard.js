@@ -1,20 +1,22 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useAuth } from '../../contexts/AuthContext';
-import { Button } from '@chakra-ui/react';
+import { Button, Flex } from '@chakra-ui/react';
 import { fetchUserInfo } from '../../store/auth';
+import SideBar from './Sidebar';
 export function Dashboard(props) {
   const { currentUser, logout, getToken } = useAuth();
 
   useEffect(() => {
-    currentUser.getIdToken(false).then((token) => {
+    getToken().then((token) => {
       props.fetchUserInfo(token);
     });
   });
   return (
-    <div>
+    <Flex>
+      <SideBar />
       <Button onClick={async () => await logout()}>Log Out</Button>
-    </div>
+    </Flex>
   );
 }
 

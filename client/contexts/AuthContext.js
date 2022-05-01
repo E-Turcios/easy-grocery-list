@@ -30,7 +30,7 @@ export function AuthProvider({ children }) {
   }
 
   function getToken() {
-    return currentUser.getIdToken();
+    return currentUser.getIdToken(false);
   }
 
   const value = { currentUser, signUp, login, logout, getToken };
