@@ -16,6 +16,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const value = { currentUser, signUp };
+
   function signUp(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
   }
