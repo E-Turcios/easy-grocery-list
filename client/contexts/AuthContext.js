@@ -18,8 +18,6 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  const value = { currentUser, signUp, login, logout };
-
   function signUp(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
   }
@@ -30,6 +28,12 @@ export function AuthProvider({ children }) {
   function logout() {
     return auth.signOut();
   }
+
+  function getToken() {
+    return currentUser.getIdToken();
+  }
+
+  const value = { currentUser, signUp, login, logout, getToken };
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}
