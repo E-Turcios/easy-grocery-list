@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import {
   Flex,
   Text,
@@ -6,6 +7,7 @@ import {
   Divider,
   Avatar,
   Heading,
+  Button,
 } from '@chakra-ui/react';
 import {
   FiMenu,
@@ -18,9 +20,11 @@ import {
 } from 'react-icons/fi';
 import { IoPawOutline } from 'react-icons/io5';
 import NavItem from './NavItem';
+import { useUserContext } from '../../contexts/UserContext';
 
 export default function Sidebar() {
   const [navSize, changeNavSize] = useState('large');
+  const { admin } = useUserContext();
   return (
     <Flex
       pos="sticky"
@@ -63,7 +67,7 @@ export default function Sidebar() {
         <NavItem navSize={navSize} icon={FiBriefcase} title="Reports" />
         <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
       </Flex>
-
+      <Button onClick={async () => await logout()}>Log Out</Button>
       <Flex
         p="5%"
         flexDir="column"
@@ -73,7 +77,7 @@ export default function Sidebar() {
       >
         <Divider display={navSize == 'small' ? 'none' : 'flex'} />
         <Flex mt={4} align="center">
-          <Avatar size="sm" src="avatar-1.jpg" />
+          <Avatar size="sm" src="" />
           <Flex
             flexDir="column"
             ml={4}
@@ -82,7 +86,7 @@ export default function Sidebar() {
             <Heading as="h3" size="sm">
               Sylwia Weller
             </Heading>
-            <Text color="gray">Admin</Text>
+            <Text color="gray">{admin ? 'Admin' : 'User'}</Text>
           </Flex>
         </Flex>
       </Flex>

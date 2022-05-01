@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Signup, Login } from '../components/account-entry/AuthForm';
 import PrivateRoute from './PrivateRoute';
-import Dashboard from '../components/dashboard/Dashboard';
+import Dashboard from '../components/dashboard/';
 /**
  * COMPONENT
  */
