@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Signup } from './components/Signup';
-import Login from './components/Login';
-
+import { withRouter, Route, Switch } from 'react-router-dom';
+import { Signup, Login } from '../app/components/AuthForm';
+import PrivateRoute from './PrivateRoute';
+import Dashboard from '../app/components/Dashboard';
 /**
  * COMPONENT
  */
@@ -12,7 +12,9 @@ class Routes extends Component {
     return (
       <div>
         <Switch>
-          <Route path="/" component={Signup} />
+          <PrivateRoute exact path="/" component={Dashboard} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/login" component={Login} />
         </Switch>
       </div>
     );
