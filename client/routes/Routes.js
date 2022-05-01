@@ -1,6 +1,5 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Route, Switch } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { Signup, Login } from '../components/account-entry/AuthForm';
 import PrivateRoute from './PrivateRoute';
 import Dashboard from '../components/dashboard/Dashboard';
