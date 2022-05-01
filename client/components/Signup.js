@@ -13,17 +13,29 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import { EmailIcon, LockIcon } from '@chakra-ui/icons';
+import { useAuth } from './contexts/AuthContext';
+
 export default function Signup() {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const paswordConfirmRef = useRef();
+  const { signup } = useAuth();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    signup(emailRef.current.value, passwordRef.current.value);
+  }
   return (
     <Flex alignItems="center" justifyContent="center" h="80vh">
       <Stack spacing={3}>
-        <FormControl isRequired>
+        <FormControl isRequired onSubmit={handleSubmit}>
           <InputGroup>
             <InputLeftElement children={<EmailIcon />} />
             <Input
               type="email"
               placeholder="user@email.com"
               aria-label="johndoe@email.com"
+              ref={emailRef}
             />
           </InputGroup>
         </FormControl>
@@ -35,6 +47,7 @@ export default function Signup() {
               type="password"
               placeholder="Password"
               aria-label="Password"
+              ref={passwordRef}
             />
           </InputGroup>
         </FormControl>
@@ -46,6 +59,7 @@ export default function Signup() {
               type={'password'}
               placeholder="Confirm password"
               aria-label="Confirm Password"
+              ref={paswordConfirmRef}
             />
           </InputGroup>
         </FormControl>
