@@ -7,7 +7,7 @@ import Dashboard from '../components/dashboard/Dashboard';
 /**
  * COMPONENT
  */
-class Routes extends Component {
+export default class Routes extends Component {
   render() {
     return (
       <Switch>
@@ -18,14 +18,3 @@ class Routes extends Component {
     );
   }
 }
-
-/**
- * CONTAINER
- */
-const mapState = (state) => {};
-
-const mapDispatch = (dispatch) => {};
-
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Routes));
