@@ -3,10 +3,13 @@ import Routes from '../Routes';
 import { Flex } from '@chakra-ui/react';
 import { ThemeProvider, ColorModeProvider, CSSReset } from '@chakra-ui/react';
 import Sidebar from './Sidebar';
+import { AuthProvider } from './contexts/AuthContext';
 const App = () => {
   return (
     <div>
-      <Routes />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </div>
   );
 };
