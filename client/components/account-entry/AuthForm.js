@@ -9,7 +9,7 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import { EmailIcon, LockIcon } from '@chakra-ui/icons';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import FormInput from './FormInput';
 
 function AuthForm({ displayName, children, handleSubmit }) {

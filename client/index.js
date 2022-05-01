@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import history from './routes/history';
 import store from './store';
-import App from './app/components/App';
+import App from './app';
 import { ChakraProvider } from '@chakra-ui/react';
 
 ReactDOM.render(
