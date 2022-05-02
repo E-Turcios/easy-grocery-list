@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { useAuth } from '../../contexts/AuthContext';
 import {
   Box,
   chakra,
@@ -16,10 +18,29 @@ import {
   VisuallyHidden,
   List,
   ListItem,
+  GridItem,
+  Grid,
 } from '@chakra-ui/react';
-import { MdLocalShipping } from 'react-icons/md';
 
-export default function SingleRecipe() {
+import { fetchRecipe } from '../../store/singleRecipe';
+
+export function SingleRecipe(props) {
+  const { getToken } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const { id, imageUrl, name, servingSize, ingredients } = props.recipe;
+  const instructions =
+    props.recipe.instructions !== undefined
+      ? props.recipe.instructions.split('\n')
+      : [];
+
+  useEffect(() => {
+    console.log(instructions);
+    if (loading) return;
+    getToken().then((token) => {
+      props.fetchRecipe(token, props.match.params.id);
+      setLoading(true);
+    });
+  });
   return (
     <Container maxW={'7xl'}>
       <SimpleGrid
@@ -31,9 +52,7 @@ export default function SingleRecipe() {
           <Image
             rounded={'md'}
             alt={'recipe image'}
-            src={
-              'https://images.unsplash.com/photo-1596516109370-29001ec8ec36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODE1MDl8MHwxfGFsbHx8fHx8fHx8fDE2Mzg5MzY2MzE&ixlib=rb-1.2.1&q=80&w=1080'
-            }
+            src={imageUrl}
             fit={'cover'}
             align={'center'}
             w={'100%'}
@@ -47,14 +66,14 @@ export default function SingleRecipe() {
               fontWeight={600}
               fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}
             >
-              Automatic Watch
+              {name}
             </Heading>
             <Text
               color={useColorModeValue('gray.900', 'gray.400')}
               fontWeight={300}
               fontSize={'2xl'}
             >
-              $350.00 USD
+              Serving Size: {servingSize}
             </Text>
           </Box>
 
@@ -67,22 +86,6 @@ export default function SingleRecipe() {
               />
             }
           >
-            <VStack spacing={{ base: 4, sm: 6 }}>
-              <Text
-                color={useColorModeValue('gray.500', 'gray.400')}
-                fontSize={'2xl'}
-                fontWeight={'300'}
-              >
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore
-              </Text>
-              <Text fontSize={'lg'}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad
-                aliquid amet at delectus doloribus dolorum expedita hic, ipsum
-                maxime modi nam officiis porro, quae, quisquam quos
-                reprehenderit velit? Natus, totam.
-              </Text>
-            </VStack>
             <Box>
               <Text
                 fontSize={{ base: '16px', lg: '18px' }}
@@ -91,21 +94,22 @@ export default function SingleRecipe() {
                 textTransform={'uppercase'}
                 mb={'4'}
               >
-                Features
+                Ingredients
               </Text>
-
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-                <List spacing={2}>
-                  <ListItem>Chronograph</ListItem>
-                  <ListItem>Master Chronometer Certified</ListItem>{' '}
-                  <ListItem>Tachymeter</ListItem>
-                </List>
-                <List spacing={2}>
-                  <ListItem>Anti‑magnetic</ListItem>
-                  <ListItem>Chronometer</ListItem>
-                  <ListItem>Small seconds</ListItem>
-                </List>
-              </SimpleGrid>
+              <Grid templateColumns="repeat(5, 1fr)" gap={6}>
+                {ingredients !== undefined &&
+                  ingredients.map((ingredient) => {
+                    return (
+                      <GridItem>
+                        <Text as={'span'} fontWeight={'bold'}>
+                          {ingredient.item}:
+                        </Text>{' '}
+                        {ingredient['recipe-ingredient'].quantity}{' '}
+                        {ingredient['recipe-ingredient'].unit}
+                      </GridItem>
+                    );
+                  })}
+              </Grid>
             </Box>
             <Box>
               <Text
@@ -115,54 +119,18 @@ export default function SingleRecipe() {
                 textTransform={'uppercase'}
                 mb={'4'}
               >
-                Product Details
+                Instrucions
               </Text>
 
-              <List spacing={2}>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Between lugs:
-                  </Text>{' '}
-                  20 mm
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Bracelet:
-                  </Text>{' '}
-                  leather strap
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Case:
-                  </Text>{' '}
-                  Steel
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Case diameter:
-                  </Text>{' '}
-                  42 mm
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Dial color:
-                  </Text>{' '}
-                  Black
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Crystal:
-                  </Text>{' '}
-                  Domed, scratch‑resistant sapphire crystal with anti‑reflective
-                  treatment inside
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Water resistance:
-                  </Text>{' '}
-                  5 bar (50 metres / 167 feet){' '}
-                </ListItem>
-              </List>
+              <VStack spacing={{ base: 4, sm: 6 }}>
+                {instructions.map((instruction, index) => {
+                  return (
+                    <Text key={index} fontSize={'lg'}>
+                      {instruction}
+                    </Text>
+                  );
+                })}
+              </VStack>
             </Box>
           </Stack>
         </Stack>
@@ -170,3 +138,11 @@ export default function SingleRecipe() {
     </Container>
   );
 }
+
+const mapStateToProps = (state) => ({ recipe: state.singleRecipe });
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchRecipe: (token, id) => dispatch(fetchRecipe(token, id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleRecipe);
