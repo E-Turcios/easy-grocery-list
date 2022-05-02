@@ -7,8 +7,9 @@ export function useUserContext() {
   return useContext(UserContext);
 }
 export function UserProvider(props) {
-  const { getToken } = useAuth();
+  const { currentUser, getToken } = useAuth();
   useEffect(() => {
+    if (!currentUser) return;
     getToken().then((id) => {
       props.fetchUserInfo(id);
     });

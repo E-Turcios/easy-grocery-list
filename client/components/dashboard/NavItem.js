@@ -9,13 +9,21 @@ import {
   MenuList,
 } from '@chakra-ui/react';
 
-export default function NavItem({ icon, title, description, active, navSize }) {
+export default function NavItem({
+  icon,
+  title,
+  description,
+  active,
+  navSize,
+  onClick,
+}) {
   return (
     <Flex
       mt={30}
       flexDir="column"
       w="100%"
       alignItems={navSize == 'small' ? 'center' : 'flex-start'}
+      onClick={onClick}
     >
       <Menu placement="right">
         <Link

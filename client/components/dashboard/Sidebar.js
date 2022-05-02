@@ -20,10 +20,12 @@ import { MdOutlineFoodBank } from 'react-icons/md';
 import { IoPawOutline } from 'react-icons/io5';
 import NavItem from './NavItem';
 import { useUserContext } from '../../contexts/UserContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function Sidebar() {
   const [navSize, changeNavSize] = useState('large');
   const { admin } = useUserContext();
+  const { logout } = useAuth();
   return (
     <Flex
       pos="sticky"
@@ -67,7 +69,12 @@ export default function Sidebar() {
         />
         <NavItem navSize={navSize} icon={FiHeart} title="Favorite Recipe" />
         <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
-        <NavItem navSize={navSize} icon={FiLogOut} title="Logout" />
+        <NavItem
+          navSize={navSize}
+          icon={FiLogOut}
+          title="Logout"
+          onClick={() => logout()}
+        />
       </Flex>
       <Flex
         p="5%"
