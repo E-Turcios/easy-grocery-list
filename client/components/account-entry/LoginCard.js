@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Flex,
   Box,
@@ -25,6 +26,7 @@ export default function SignupCard() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { login } = useAuth();
+  const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -36,6 +38,7 @@ export default function SignupCard() {
       setError(error.message);
     }
     setLoading(false);
+    history.push('/');
   }
   return (
     <Flex
@@ -108,7 +111,7 @@ export default function SignupCard() {
                     bg: 'blue.500',
                   }}
                 >
-                  Sign up
+                  Log In
                 </Button>
               </Stack>
               <Stack pt={6}>

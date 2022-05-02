@@ -16,6 +16,7 @@ export default function NavItem({
   active,
   navSize,
   onClick,
+  path,
 }) {
   return (
     <Flex
@@ -27,7 +28,7 @@ export default function NavItem({
     >
       <Menu placement="right">
         <Link
-          backgroundColor={active && '#AEC8CA'}
+          backgroundColor={active && 'blue.400'}
           p={3}
           borderRadius={8}
           _hover={{ textDecor: 'none', backgroundColor: '#AEC8CA' }}

@@ -3,7 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { Signup, Login } from '../components/account-entry/AuthForm';
 import Dashboard from '../components/dashboard/Dashboard';
 import SingleRecipe from '../components/dashboard/SingleRecipe';
-import { Flex, Square } from '@chakra-ui/react';
+import { Flex, Square, Button } from '@chakra-ui/react';
 import Sidebar from '../components/dashboard/Sidebar';
 import { useAuth } from '../contexts/AuthContext';
 import AllRecipes from '../components/dashboard/AllRecipes';
@@ -13,7 +13,7 @@ import LoginCard from '../components/account-entry/LoginCard';
  * COMPONENT
  */
 export default function Routes() {
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
 
   return currentUser ? (
     <div>
@@ -21,10 +21,10 @@ export default function Routes() {
         <Sidebar />
         <Square ml={20}>
           <Switch>
-            <Route exact path="/" component={Dashboard} />
+            <Route exact path="/" component={AllRecipes} />
             <Route exact path="/all-recipes" component={AllRecipes} />
-            <Route path="/all-recipes/:id" component={SingleRecipe} />
-            <Redirect to="/" />
+            <Route exact path="/all-recipes/:id" component={SingleRecipe} />
+            <Redirect to="/all-recipes" />
           </Switch>
         </Square>
       </Flex>

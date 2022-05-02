@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Flex,
   Box,
@@ -26,6 +27,7 @@ export default function SignupCard() {
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
   const { signUp } = useAuth();
+  const history = useHistory();
 
   function CheckPasswordMatch(passwordRef, passwordConfirmRef) {
     return passwordRef.current.value !== passwordConfirmRef.current.value;
@@ -43,6 +45,7 @@ export default function SignupCard() {
       setError(error.message);
     }
     setLoading(false);
+    history.push('/');
   }
   return (
     <Flex
@@ -138,7 +141,7 @@ export default function SignupCard() {
               </Stack>
               <Stack pt={6}>
                 <Text align={'center'}>
-                  Already a user? <Link to="/signup"> Login </Link>
+                  Already a user? <Link to="/login"> Login </Link>
                 </Text>
               </Stack>
             </Stack>

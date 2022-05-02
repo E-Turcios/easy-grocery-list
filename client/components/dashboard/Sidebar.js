@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Flex,
   Text,
@@ -7,6 +8,8 @@ import {
   Avatar,
   Heading,
   Button,
+  LinkBox,
+  LinkOverlay,
 } from '@chakra-ui/react';
 import {
   FiMenu,
@@ -22,10 +25,14 @@ import NavItem from './NavItem';
 import { useUserContext } from '../../contexts/UserContext';
 import { useAuth } from '../../contexts/AuthContext';
 
-export default function Sidebar() {
+export default function Sidebar(props) {
   const [navSize, changeNavSize] = useState('large');
   const { admin } = useUserContext();
   const { logout } = useAuth();
+  const history = useHistory();
+  useEffect(() => {
+    console.log(history);
+  });
   return (
     <Flex
       pos="sticky"
@@ -55,20 +62,36 @@ export default function Sidebar() {
             else changeNavSize('small');
           }}
         />
-        <NavItem
-          navSize={navSize}
-          icon={FiHome}
-          title="Dashboard"
-          description="This is the description for the dashboard."
-          active
-        />
+
+        <LinkBox>
+          <LinkOverlay href={'/all-recipe'}>
+            <NavItem
+              navSize={navSize}
+              icon={FiHome}
+              title="Dashboard"
+              description="This is the description for the dashboard."
+            />
+          </LinkOverlay>
+        </LinkBox>
+
         <NavItem
           navSize={navSize}
           icon={MdOutlineFoodBank}
           title="All Recipe"
+          onClick={() => history.push('/all-recipe')}
         />
-        <NavItem navSize={navSize} icon={FiHeart} title="Favorite Recipe" />
-        <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
+        <NavItem
+          navSize={navSize}
+          icon={FiHeart}
+          title="Favorite Recipe"
+          onClick={() => history.push('/fav')}
+        />
+        <NavItem
+          navSize={navSize}
+          icon={FiSettings}
+          title="Settings"
+          onClick={() => history.push('/setting')}
+        />
         <NavItem
           navSize={navSize}
           icon={FiLogOut}
@@ -84,7 +107,7 @@ export default function Sidebar() {
         mb={4}
       >
         <Divider display={navSize == 'small' ? 'none' : 'flex'} />
-        <Flex mt={4} align="center">
+        {/* <Flex mt={4} align="center">
           <Avatar size="sm" src="" />
           <Flex
             flexDir="column"
@@ -96,7 +119,7 @@ export default function Sidebar() {
             </Heading>
             <Text color="gray">{admin ? 'Admin' : 'User'}</Text>
           </Flex>
-        </Flex>
+        </Flex> */}
       </Flex>
     </Flex>
   );

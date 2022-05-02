@@ -62,7 +62,7 @@ export default function RecipeCard(props) {
             Serving Size: {servingSize}
           </Text>
           <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
-            <LinkOverlay href={`/recipe/${id}`}> {name} </LinkOverlay>
+            <LinkOverlay href={`/all-recipes/${id}`}> {name} </LinkOverlay>
           </Heading>
         </Stack>
       </LinkBox>
