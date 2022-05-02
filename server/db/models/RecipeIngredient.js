@@ -7,7 +7,6 @@ const RecipeIngredient = db.define(
     quantity: {
       type: Sequelize.INTEGER,
       allowNull: false,
-      unique: true,
       validate: {
         notEmpty: true,
       },

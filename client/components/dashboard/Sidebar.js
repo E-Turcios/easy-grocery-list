@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import {
   Flex,
   Text,
@@ -12,12 +11,12 @@ import {
 import {
   FiMenu,
   FiHome,
-  FiCalendar,
   FiUser,
-  FiDollarSign,
-  FiBriefcase,
+  FiHeart,
   FiSettings,
+  FiLogOut,
 } from 'react-icons/fi';
+import { MdOutlineFoodBank } from 'react-icons/md';
 import { IoPawOutline } from 'react-icons/io5';
 import NavItem from './NavItem';
 import { useUserContext } from '../../contexts/UserContext';
@@ -59,15 +58,17 @@ export default function Sidebar() {
           icon={FiHome}
           title="Dashboard"
           description="This is the description for the dashboard."
+          active
         />
-        <NavItem navSize={navSize} icon={FiCalendar} title="Calendar" active />
-        <NavItem navSize={navSize} icon={FiUser} title="Clients" />
-        <NavItem navSize={navSize} icon={IoPawOutline} title="Animals" />
-        <NavItem navSize={navSize} icon={FiDollarSign} title="Stocks" />
-        <NavItem navSize={navSize} icon={FiBriefcase} title="Reports" />
+        <NavItem
+          navSize={navSize}
+          icon={MdOutlineFoodBank}
+          title="All Recipe"
+        />
+        <NavItem navSize={navSize} icon={FiHeart} title="Favorite Recipe" />
         <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
+        <NavItem navSize={navSize} icon={FiLogOut} title="Logout" />
       </Flex>
-      <Button onClick={async () => await logout()}>Log Out</Button>
       <Flex
         p="5%"
         flexDir="column"

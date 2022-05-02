@@ -20,7 +20,7 @@ export function UserProvider(props) {
   );
 }
 
-const mapStateToProps = (state) => ({ user: state.Auth });
+const mapStateToProps = (state) => ({ user: state.auth });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchUserInfo: (token) => dispatch(fetchUserInfo(token)),

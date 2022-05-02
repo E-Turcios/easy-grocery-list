@@ -7,7 +7,6 @@ const Recipe = db.define(
     name: {
       type: Sequelize.STRING,
       allowNull: false,
-      unique: true,
       validate: {
         notEmpty: true,
       },
@@ -21,6 +20,15 @@ const Recipe = db.define(
     },
     servingSize: {
       type: Sequelize.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    imageUrl: {
+      type: Sequelize.STRING,
+      defaultValue:
+        'https://www.flexx.co/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png',
       allowNull: false,
       validate: {
         notEmpty: true,

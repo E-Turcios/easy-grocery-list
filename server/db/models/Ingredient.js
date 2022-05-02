@@ -12,13 +12,6 @@ const Ingredient = db.define(
         notEmpty: true,
       },
     },
-    type: {
-      type: Sequelize.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
   },
   { timestamps: false, createdAt: false, updatedAt: false }
 );

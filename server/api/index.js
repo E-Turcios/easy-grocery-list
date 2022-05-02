@@ -1,7 +1,7 @@
 const router = require('express').Router();
 module.exports = router;
 
-router.use('/recipie', require('./recipie'));
+router.use('/recipe', require('./recipe'));
 router.use('/user', require('./user'));
 router.use((req, res, next) => {
   const error = new Error('Not Found');
