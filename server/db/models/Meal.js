@@ -1,10 +1,10 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-const Ingredient = db.define(
-  'ingredient',
+const Meal = db.define(
+  'meal',
   {
-    item: {
+    type: {
       type: Sequelize.STRING,
       allowNull: false,
       unique: true,
@@ -12,8 +12,11 @@ const Ingredient = db.define(
         notEmpty: true,
       },
     },
+    date: {
+      type: Sequelize.DATEONLY,
+    },
   },
   { timestamps: false, createdAt: false, updatedAt: false }
 );
 
-module.exports = Ingredient;
+module.exports = Meal;
