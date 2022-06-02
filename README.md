@@ -1,4 +1,4 @@
-# Easy Go List
+# Easy Grocery List
 
 ## Setup
 
@@ -11,9 +11,9 @@ To run Easy Go List, you'll need to take the following steps:
 * Now you will have to add this project as a remote and merge it into your own repository.
 
 ```
-git remote add boilermaker git@github.com:FullstackAcademy/fs-app-template.git
-git fetch boilermaker
-git merge boilermaker/main
+git remote add easy-grocery-list git@github.com:T-Ender/easy-grocery-list.git
+git fetch easy-grocery-list
+git merge easy-grocery-list/main
 git branch -m master main
 ```
 
